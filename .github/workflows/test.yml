@@ -19,7 +19,7 @@ jobs:
         run: |
           lsss -lAh
       
-      - name: Handle job status
+      - name: Send status notification
         if: ${{ always() }}
         run: |
           if [[ ${{ job.status }} = "success" ]];
@@ -29,15 +29,11 @@ jobs:
           then
             icon=":red_circle:"
           else
-            icon=""
+            icon=":information_source:"
           fi
 
           msgBody="${icon} Deployment ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
 
-          postData="{
-            \"displayName\":\"Github Action\",
-            \"format\":\"html\",
-            \"text\":\"${msgBody}\"
-          }"
+          postData="{ \"displayName\":\"Github Action\", \"format\":\"html\", \"text\":\"${msgBody}\" }"
 
           curl -s --stderr - -X POST -H "Content-Type: application/json" -d "${postData}" "${{ secrets.WEBHOOK_URL }}"
