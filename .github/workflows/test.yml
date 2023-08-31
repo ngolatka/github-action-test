@@ -17,7 +17,7 @@ jobs:
     
       - name: Run test action
         run: |
-          lsss -lAh
+          ls -lAh
       
       - name: Send status notification
         if: ${{ always() }}
@@ -35,7 +35,7 @@ jobs:
             jobStatus="${{ job.status }}"
           fi
 
-          msgBody="${prefix}<a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>Holinger CMS deployment</a> ${{ github.repository }} triggered by ${{ github.actor }} from branch ${{ github.ref_name }} has ${jobStatus}"
+          msgBody="${prefix}<a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>Holinger CMS deployment</a> triggered by ${{ github.actor }} from branch ${{ github.ref_name }} has ${jobStatus}"
           postData="{ \"username\":\"Github Action\", \"version\":\"v2\", \"html\":\"${msgBody}\" }"
 
           curl -s --stderr - -X POST -H "Content-Type: application/json" -d "${postData}" "${{ secrets.HOOKSHOT_URL }}"
