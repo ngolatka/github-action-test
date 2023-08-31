@@ -32,7 +32,7 @@ jobs:
             icon=":information_source:"
           fi
 
-          msgBody="${icon} Deployment ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
+          msgBody="${icon} Deployment ${{ github.ref_name }}  ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
 
           postData="{ \"displayName\":\"Github Action\", \"format\":\"html\", \"text\":\"${msgBody}\" }"
 
