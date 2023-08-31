@@ -23,4 +23,16 @@ jobs:
         if: ${{ always() }}
         run: |
           echo "${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}"
+
+          if [[ ${{ job.status }} = "success" ]];
+          then
+            echo "ok"
+          elif [[ ${{ job.status }} = "failure" ]];
+          then
+            echo "fail"
+          else
+            echo "${{ job.status }}"
+          fi
+
+
           echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
