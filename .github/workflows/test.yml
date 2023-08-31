@@ -20,6 +20,6 @@ jobs:
           ls -lAh
       
       - name: Handle failure
-        if: ${{ always }}
+        if: ${{ always() }}
         run: |
           echo "${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}"
