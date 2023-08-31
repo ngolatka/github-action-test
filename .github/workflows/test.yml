@@ -1,0 +1,25 @@
+name: 'Test action'
+
+on:
+  workflow_dispatch:   # Allow triggering pipeline manually via web UI
+
+  push:
+    branches:
+      - main   # Trigger pipeline on push to this branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v3   # Get project sources onto runner
+    
+      - name: Run test action
+        run: |
+          ls -lAh
+      
+      - name: Handle failure
+        if: ${{ always }}
+        run: |
+          echo "${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}"
