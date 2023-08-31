@@ -17,22 +17,22 @@ jobs:
     
       - name: Run test action
         run: |
-          ls -lAh
+          lsss -lAh
       
       - name: Send status notification
         if: ${{ always() }}
         run: |
           if [[ ${{ job.status }} = "success" ]];
           then
-            icon=":white_check_mark:"
+            icon="&#9989; "
           elif [[ ${{ job.status }} = "failure" ]];
           then
-            icon=":red_circle:"
+            icon="&#128308; "
           else
-            icon=":information_source:"
+            icon=""
           fi
 
-          msgBody="&#10003; Test message: branch ${{ github.ref_name }}, repo ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
+          msgBody="${icon}Test message: branch ${{ github.ref_name }}, repo ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
 
           postData="{ \"username\":\"Github Action\", \"version\":\"v2\", \"html\":\"${msgBody}\" }"
 
