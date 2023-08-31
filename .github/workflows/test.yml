@@ -32,7 +32,7 @@ jobs:
             icon=":information_source:"
           fi
 
-          msgBody="$Test message: branch ${{ github.ref_name }}, repo ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
+          msgBody="&#10003; Test message: branch ${{ github.ref_name }}, repo ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
 
           postData="{ \"username\":\"Github Action\", \"version\":\"v2\", \"html\":\"${msgBody}\" }"
 
