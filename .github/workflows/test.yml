@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main   # Trigger pipeline on push to this branch
+      - dev
 
 jobs:
   deploy:
@@ -29,7 +30,7 @@ jobs:
           elif [[ ${{ job.status }} = "failure" ]];
           then
             prefix="&#128308; "
-            jobStatus="failed"
+            jobStatus="failed!"
           else
             prefix=""
             jobStatus="${{ job.status }}"
