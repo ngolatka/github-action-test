@@ -19,20 +19,25 @@ jobs:
         run: |
           lsss -lAh
       
-      - name: Handle failure
+      - name: Handle job status
         if: ${{ always() }}
         run: |
-          echo "${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}"
-
           if [[ ${{ job.status }} = "success" ]];
           then
-            echo "ok"
+            icon ":white_check_mark:"
           elif [[ ${{ job.status }} = "failure" ]];
           then
-            echo "fail"
+            icon ":red_circle:"
           else
-            echo "${{ job.status }}"
+            icon ""
           fi
 
+          msgBody="${icon} Deployment ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
 
-          echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          postData="{
+            \"displayName\":\"Github Action\",
+            \"format\":\"html\",
+            \"text\":\"${msgBody}\"
+          }"
+
+          curl -s --stderr - -X POST -H "Content-Type: application/json" -d "${postData}" "${{ secrets.WEBHOOK_URL }}"
