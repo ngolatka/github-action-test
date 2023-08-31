@@ -24,12 +24,12 @@ jobs:
         run: |
           if [[ ${{ job.status }} = "success" ]];
           then
-            icon ":white_check_mark:"
+            icon=":white_check_mark:"
           elif [[ ${{ job.status }} = "failure" ]];
           then
-            icon ":red_circle:"
+            icon=":red_circle:"
           else
-            icon ""
+            icon=""
           fi
 
           msgBody="${icon} Deployment ${{ github.repository }} <a href='https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'>${{ job.status }}</a>"
